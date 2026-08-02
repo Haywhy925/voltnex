@@ -14,3 +14,24 @@ export async function fetchProducts(): Promise<ProductParams[]> {
   }
   return products;
 }
+
+export async function fetchProductById(id: string) {
+  const supabase = await createClient();
+  try {
+    const { data: product, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    return product;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

@@ -1,15 +1,15 @@
 import React from "react";
+import { fetchProductById } from "../../../../utils/actions/product.action";
+import ProductDetails from "@/components/ProductDetails";
 
-async function Product({
-  params,
-}: {
-  params: { params: Promise<{ id: string }> };
-}) {
+async function Product({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+
+  const product = await fetchProductById(id);
 
   return (
     <div>
-      <h1>{id}</h1>
+      <ProductDetails product={product} />
     </div>
   );
 }
